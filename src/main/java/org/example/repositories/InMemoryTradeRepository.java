@@ -5,6 +5,7 @@ import org.example.models.Trade;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryTradeRepository implements ITradeRepository {
@@ -18,5 +19,10 @@ public class InMemoryTradeRepository implements ITradeRepository {
     @Override
     public List<Trade> getTradesByStock(StockSymbol stockSymbol) {
         return tradesByStock.getOrDefault(stockSymbol, new ArrayList<>());
+    }
+
+    @Override
+    public Map<StockSymbol, List<Trade>> getTradeBook() {
+        return tradesByStock;
     }
 }

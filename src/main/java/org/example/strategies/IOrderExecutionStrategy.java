@@ -2,8 +2,8 @@ package org.example.strategies;
 
 import org.example.models.Order;
 
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 public interface IOrderExecutionStrategy {
-    void execute(PriorityQueue<Order> buyOrders, PriorityQueue<Order> sellOrders);
+    void execute(PriorityBlockingQueue<Order> buyOrders, PriorityBlockingQueue<Order> sellOrders);
 }

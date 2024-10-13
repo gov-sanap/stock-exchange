@@ -12,6 +12,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class TradingSystem {
@@ -44,8 +45,8 @@ public class TradingSystem {
         for (StockSymbol stock : StockSymbol.values()) {
             stockOrderQueues.putIfAbsent(stock,
                     OrderQueues.builder()
-                            .buyOrders(new PriorityQueue<>(Comparator.comparingDouble(Order::getPrice).reversed().thenComparing(Order::getTimestamp)))
-                            .sellOrders(new PriorityQueue<>(Comparator.comparingDouble(Order::getPrice).thenComparing(Order::getTimestamp)))
+                            .buyOrders(new PriorityBlockingQueue<>(1, Comparator.comparingDouble(Order::getPrice).reversed().thenComparing(Order::getTimestamp)))
+                            .sellOrders(new PriorityBlockingQueue<>(1, Comparator.comparingDouble(Order::getPrice).thenComparing(Order::getTimestamp)))
                             .build());
             executorService.submit(new OrderExecutionWorker(orderExecutionStrategy, stockOrderQueues.get(stock)));
         }

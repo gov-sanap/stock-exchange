@@ -5,6 +5,8 @@ import org.example.models.Order;
 import org.example.models.OrderStatus;
 import org.example.models.OrderType;
 import org.example.models.StockSymbol;
+import org.example.providers.ITimeProvider;
+import org.example.providers.SystemTimeProvider;
 import org.example.repositories.IOrderRepository;
 import org.example.repositories.ITradeRepository;
 import org.example.repositories.InMemoryOrderRepository;
@@ -26,8 +28,9 @@ public class App
     {
         IOrderRepository orderRepository = new InMemoryOrderRepository();
         ITradeRepository tradeRepository = new InMemoryTradeRepository();
+        ITimeProvider timeProvider = new SystemTimeProvider();
         IOrderExecutionStrategy executionStrategy = new DefaultOrderExecutionStrategy(
-                new AtomicInteger(1), orderRepository, tradeRepository);
+                new AtomicInteger(1), orderRepository, tradeRepository, timeProvider);
         log.info("Starting Application");
 
         TradingSystem tradingSystem = TradingSystem.getInstance(orderRepository, executionStrategy);
@@ -46,7 +49,7 @@ public class App
                 .build();
 
         tradingSystem.placeOrder(order0);
-        log.info("Placed forth order which is expired by default fot testing");
+        log.info("Placed forth order which is expired by default for testing");
 
         Order order1 = Order.builder()
                 .orderId(1)

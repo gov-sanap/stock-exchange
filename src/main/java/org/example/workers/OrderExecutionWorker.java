@@ -11,12 +11,8 @@ import java.util.*;
 
 @AllArgsConstructor
 public class OrderExecutionWorker implements Runnable{
-//    private final IOrderRepository orderRepository;
-//    private final List<Trade> trades;
     private final IOrderExecutionStrategy orderExecutionStrategy;
     private OrderQueues orderQueues;
-//    PriorityQueue<Order> buyOrders = new PriorityQueue<>(Comparator.comparingDouble(Order::getPrice).reversed().thenComparing(Order::getTimestamp));
-//    PriorityQueue<Order> sellOrders = new PriorityQueue<>(Comparator.comparingDouble(Order::getPrice).thenComparing(Order::getTimestamp));
 
 
     @Override

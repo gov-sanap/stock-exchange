@@ -3,11 +3,11 @@ package org.example.models;
 import lombok.Builder;
 import lombok.Data;
 
-import java.util.PriorityQueue;
+import java.util.concurrent.PriorityBlockingQueue;
 
 @Data
 @Builder
 public class OrderQueues {
-    PriorityQueue<Order> buyOrders;
-    PriorityQueue<Order> sellOrders;
+    PriorityBlockingQueue<Order> buyOrders;
+    PriorityBlockingQueue<Order> sellOrders;
 }
